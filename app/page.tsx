@@ -86,7 +86,7 @@ const orientationData = [
       "Seek first aid, file an accident report, and notify manager",
       "Fill out the accident report form, then report to Manager"
     ],
-    correct: [3],
+    correct: [2],
     icon: <ShieldAlert className="w-5 h-5" />
   },
   {
