@@ -252,7 +252,7 @@ const orientationData = [
       th: [
         "Checklist และ Task list",
         "แก๊ส / เตา / แอร์",
-        "ล็อคประตู / การคุมยอดเงิน / ถาดเงินสด",
+        "ล็อคประตู / Cash control / Cash tray",
         "ทรัพย์สินส่วนตัวของพนักงาน / ของที่ลูกค้าลืมไว้",
         "ก๊อกน้ำ / ซิงค์ล้างจาน / เครื่องล้างจาน",
         "Staff meals"
@@ -885,7 +885,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2603101616
+            V 2603101621
           </div>
         </div>
       </nav>
