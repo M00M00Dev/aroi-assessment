@@ -65,14 +65,15 @@ const orientationData = [
   {
     id: 1,
     category: "Workplace",
-    question: "Which of the following are the primary work locations?",
+    question: "Where are our primary work locations? (There are 2 correct answers)",
     options: [
       "1218 Toorak Rd, Camberwell & 435 Nepean Hwy, Frankston",
       "100 Flinders St, Melbourne & 500 Chapel St, South Yarra",
       "Only the location I applied for the job",
       "I'm open to working at any locations, but it has to be a mutual decision"
     ],
-    correct: [3],
+    multiple: true,
+    correct: [0, 3],
     icon: <MapPin className="w-5 h-5" />
   },
   {
@@ -82,7 +83,7 @@ const orientationData = [
     options: [
       "Wait until the end of the shift to mention it",
       "Don't waste time, only report it only if it seems serious",
-      "Get first aid and fill out the accident report form",
+      "Seek first aid, file an accident report, and notify manager",
       "Fill out the accident report form, then report to Manager"
     ],
     correct: [3],
@@ -123,10 +124,11 @@ const orientationData = [
       "Gas / Stove / Air Conditioning",
       "Door lock / Cash control / Cash tray",
       "Staff personal belongings / Lost and Found items",
-      "Kitchen faucet / Sink / Washing machine"
+      "Kitchen faucet / Sink / Washing machine",
+      "Staff meals"
     ],
     multiple: true,
-    correct: [0, 1, 2, 4],
+    correct: [0, 1, 2, 4, 5],
     icon: <Trash2 className="w-5 h-5" />
   },
   {
@@ -147,9 +149,9 @@ const orientationData = [
     category: "Payment",
     question: "When is the pay date and what is the period?",
     options: [
-      "Every fortnight on Sunday (Mon-Sun cycle)",
-      "Every fortnight on Monday (Mon-Sun cycle)",
-      "Every fortnight on Tuesday (Mon-Sun cycle)",
+      "Every fortnight on Sunday night (Mon-Sun cycle)",
+      "Every fortnight on Monday night (Mon-Sun cycle)",
+      "Every fortnight on Tuesday night (Mon-Sun cycle)",
       "Every day after my shifts"
     ],
     correct: [2],
@@ -591,6 +593,7 @@ const App = () => {
       
       const selectedOptionsText = selectedIndices.map((idx: number) => q.options[idx]).join(", ");
       
+      // Explicitly naming columns q1_response, q1_result etc.
       flatQuizData[`q${index + 1}_response`] = selectedOptionsText;
       flatQuizData[`q${index + 1}_result`] = isCorrect ? "Correct" : "Incorrect";
     });
@@ -624,7 +627,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2603041257
+            V 2603101530
           </div>
         </div>
       </nav>
