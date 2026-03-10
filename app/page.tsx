@@ -85,6 +85,8 @@ const translations = {
     submitting: "Submitting Data...",
     retake: "Retake this assessment",
     review: "Review Orientation Module",
+    thankYou: "Thank you,",
+    you: "You",
     score: "scored",
     outOf: "out of",
     passed: "PASSED",
@@ -115,6 +117,8 @@ const translations = {
     submitting: "กำลังส่งข้อมูล...",
     retake: "ทำแบบประเมินอีกครั้ง",
     review: "ทบทวนบทเรียนการปฐมนิเทศ",
+    thankYou: "ขอบคุณคุณ",
+    you: "คุณ",
     score: "ได้คะแนน",
     outOf: "จาก",
     passed: "ผ่านการทดสอบ",
@@ -620,7 +624,7 @@ const ConsentScreen = ({ userData, onFinalSubmit, isSubmitting, language }: Cons
       "I consent to the recording of my responses for quality and training improvement."
     ],
     th: [
-      "ข้าพเจ้ารับทราบและยินยอมตามนโยบายของ AROI PTY LTD เกี่ยวกับการตรวจสอบสถานที่ทำงาน การใช้กล้องวงจรปิด และการตรวจสอบต่างๆ",
+      "ข้าพเจ้ารับทราบ and ยินยอมตามนโยบายของ AROI PTY LTD เกี่ยวกับการตรวจสอบสถานที่ทำงาน การใช้กล้องวงจรปิด และการตรวจสอบต่างๆ",
       "ข้าพเจ้ายินยอมให้ติดต่อได้นอกเวลาทำงานระหว่าง 10:00 น. ถึง 22:00 น. เพื่อความจำเป็นในการดำเนินงาน",
       "ข้าพเจ้าเข้าใจนโยบายการใช้โทรศัพท์มือถือที่เข้มงวดและข้อกำหนดในการรายงานสุขภาพและความปลอดภัย",
       "ข้าพเจ้ายอมรับว่าการประพฤติผิดร้ายแรงอาจนำไปสู่การเลิกจ้างทันทีและอาจถูกริบค่าจ้างที่ค้างจ่ายได้",
@@ -704,7 +708,7 @@ const ResultScreen = ({ score, userData, completionCode, language }: ResultScree
         {passed ? t.passedTitle : t.failedTitle}
       </h2>
       <p className="text-zinc-400 mb-8 max-w-xs">
-        Thank you, <span className="text-white font-bold">{userData.firstName}</span>. You {t.score} {score} {t.outOf} {orientationData.length}.
+        {t.thankYou} <span className="text-white font-bold">{userData.firstName}</span>. {t.you} {t.score} {score} {t.outOf} {orientationData.length}.
       </p>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mb-8 text-left">
@@ -885,7 +889,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2603101621
+            V 2603101625
           </div>
         </div>
       </nav>
