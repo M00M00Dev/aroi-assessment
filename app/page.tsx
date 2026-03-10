@@ -246,7 +246,7 @@ const orientationData = [
         "Gas / Stove / Air Conditioning",
         "Door lock / Cash control / Cash tray",
         "Staff personal belongings / Lost and Found items",
-        "Kitchen faucet / Sink / Washing machine",
+        "Kitchen faucet / Sink / Dish Washing machine",
         "Staff meals"
       ],
       th: [
@@ -254,8 +254,8 @@ const orientationData = [
         "แก๊ส / เตา / แอร์",
         "ล็อคประตู / การคุมยอดเงิน / ถาดเงินสด",
         "ทรัพย์สินส่วนตัวของพนักงาน / ของหายได้คืน",
-        "ก๊อกน้ำ / ซิงค์ล้างจาน / เครื่องซักผ้า",
-        "อาหารพนักงาน"
+        "ก๊อกน้ำ / ซิงค์ล้างจาน / เครื่องล้างจาน",
+        "Staff meals"
       ]
     },
     multiple: true,
@@ -885,7 +885,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2603101605
+            V 2603101615
           </div>
         </div>
       </nav>
