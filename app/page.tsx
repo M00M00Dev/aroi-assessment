@@ -84,7 +84,7 @@ const orientationData = [
       "Wait until the end of the shift to mention it",
       "Don't waste time, only report it only if it seems serious",
       "Seek first aid, file an accident report, and notify manager",
-      "Fill out the accident report form, then report to Manager"
+      "Fill out the accident report form, then report to manager"
     ],
     correct: [2],
     icon: <ShieldAlert className="w-5 h-5" />
@@ -107,8 +107,8 @@ const orientationData = [
     category: "Attendance",
     question: "What is the procedure for requesting leave?",
     options: [
-      "Send an SMS to the Manager",
-      "Call Manager and SMS at least 2 weeks in advance",
+      "Send an SMS to the manager",
+      "Call manager and SMS at least 2 weeks in advance",
       "Tell a colleague to cover your shift",
       "Call the Director at appropriate time frame"
     ],
@@ -163,7 +163,7 @@ const orientationData = [
     question: "What are the consequences of serious misconduct?",
     options: [
       "Just apologise and promise it was a one-time mistake",
-      "It's acceptable; the Manager will issue a verbal warning",
+      "It's acceptable; the manager will issue a verbal warning",
       "Termination of employment and potential legal action are expected",
       "I am willing to pay for the damages and I promise it won't happen again"
     ],
@@ -190,7 +190,7 @@ const orientationData = [
     question: "If my roster is on a public holiday, what should I do?",
     options: [
       "It's my holiday. I can take a break without telling anyone.",
-      "It's my day off, but I still need to let the Manager know.",
+      "It's my day off, but I still need to let the manager know.",
       "I still have to work because it's on my roster."
     ],
     correct: [1],
@@ -627,7 +627,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2603101530
+            V 2603101537
           </div>
         </div>
       </nav>
