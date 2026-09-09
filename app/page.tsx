@@ -387,6 +387,9 @@ const orientationData = [
   }
 ];
 
+// Pass mark: every question must be correct. Was 80% (8/10) until 09/09/2026.
+const PASS_MARK = orientationData.length;
+
 const WelcomeScreen = ({ userData, setUserData, setStep }: WelcomeScreenProps) => {
   const isComplete = userData.firstName.trim() && userData.lastName.trim() && userData.mobile.trim();
 
@@ -695,7 +698,7 @@ const ConsentScreen = ({ userData, onFinalSubmit, isSubmitting, language }: Cons
 };
 
 const ResultScreen = ({ score, userData, completionCode, language }: ResultScreenProps) => {
-  const passed = score >= (orientationData.length * 0.8);
+  const passed = score >= PASS_MARK;
   const t = translations[language];
   
   return (
@@ -864,7 +867,7 @@ const App = () => {
       mobile: userData.mobile,
       score: score,
       totalQuestions: orientationData.length,
-      passed: score >= (orientationData.length * 0.8),
+      passed: score >= PASS_MARK,
       completionCode: code,
       module: MODULE_NAME,
       language: language.toUpperCase(),
@@ -889,7 +892,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2603101625
+            V 2609091100
           </div>
         </div>
       </nav>
