@@ -385,6 +385,31 @@ const orientationData = [
     correct: [1],
     icon: <Clock className="w-5 h-5" />
   }
+  {
+    id: 11,
+    category: { en: "Attendance", th: "เวลาปฏิบัติงาน" },
+    question: { 
+      en: "To prevent incorrect pay or salary, what should you do if you forget to clock in or out? (There are 2 correct answers)", 
+      th: "เพื่อป้องกันการจ่ายค่าจ้างหรือเงินเดือนที่ไม่ถูกต้อง หากคุณลืมลงเวลาเข้าหรือออกงาน คุณควรทำอย่างไร? (มี 2 ข้อที่ถูกต้อง)" 
+    },
+    options: {
+      en: [
+        "Update my time in the Square Team app before the pay cycle",
+        "Wait for the next pay cycle to correct itself",
+        "Send an SMS to the director for the missing or incomplete hours record",
+        "Ask a colleague to clock in for me"
+      ],
+      th: [
+        "อัปเดตเวลาของฉันในแอป Square Team ก่อนรอบจ่ายเงิน",
+        "รอให้รอบจ่ายเงินถัดไปแก้ไขให้เอง",
+        "ส่ง SMS แจ้งผู้บริหารเรื่องบันทึกชั่วโมงที่ขาดหายหรือไม่สมบูรณ์",
+        "ให้เพื่อนร่วมงานลงเวลาแทนฉัน"
+      ]
+    },
+    multiple: true,
+    correct: [0, 2],
+    icon: <Clock className="w-5 h-5" />
+  },
 ];
 
 // Pass mark: every question must be correct. Was 80% (8/10) until 09/09/2026.
@@ -892,7 +917,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2609091400
+            V 2609091600
           </div>
         </div>
       </nav>
