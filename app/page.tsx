@@ -342,21 +342,21 @@ const orientationData = [
     id: 9,
     category: { en: "Benefits", th: "สิทธิประโยชน์" },
     question: { 
-      en: "What's the condition of the 30% team discount? (Select all that apply)", 
-      th: "เงื่อนไขของส่วนลดทีมงาน 30% คืออะไร? (เลือกทุกข้อที่เกี่ยวข้อง)" 
+      en: "What's the condition of the 30% team discount? (There are 2 correct answers)", 
+      th: "เงื่อนไขของส่วนลดทีมงาน 30% คืออะไร? (มี 2 ข้อที่ถูกต้อง)" 
     },
     options: {
       en: [
         "I can bring anyone to the restaurant and everyone gets 30% discount",
-        "30% discount only applies for myself to buy any items from the restaurant",
-        "My friends can enjoy this 30% discount but only they need to come with me",
-        "My family can enjoy this 30% discount but only they need to come with me"
+        "The 30% discount applies when I buy items from the restaurant for myself",
+        "My friends can use the 30% discount when they come in with me",
+        "My family can use the 30% discount, but only when they come in with me"
       ],
       th: [
         "ฉันสามารถพาใครมาก็ได้และทุกคนจะได้ส่วนลด 30%",
-        "ส่วนลด 30% ใช้ได้เฉพาะตัวฉันเองในการซื้อสินค้าในร้าน",
-        "เพื่อนของฉันใช้ส่วนลดนี้ได้ แต่ต้องมาพร้อมกับฉันเท่านั้น",
-        "ครอบครัวของฉันใช้ส่วนลดนี้ได้ แต่ต้องมาพร้อมกับฉันเท่านั้น"
+        "ส่วนลด 30% ใช้ได้เมื่อฉันซื้อสินค้าในร้านสำหรับตัวเอง",
+        "เพื่อนของฉันใช้ส่วนลด 30% ได้เมื่อมาที่ร้านพร้อมกับฉัน",
+        "ครอบครัวของฉันใช้ส่วนลด 30% ได้ แต่ต้องมาที่ร้านพร้อมกับฉันเท่านั้น"
       ]
     },
     multiple: true,
@@ -892,7 +892,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2609091100
+            V 2609091400
           </div>
         </div>
       </nav>
