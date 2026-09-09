@@ -384,7 +384,7 @@ const orientationData = [
     },
     correct: [1],
     icon: <Clock className="w-5 h-5" />
-  }
+  },
   {
     id: 11,
     category: { en: "Attendance", th: "เวลาปฏิบัติงาน" },
