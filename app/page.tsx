@@ -28,6 +28,9 @@ type UserData = {
   firstName: string;
   lastName: string;
   mobile: string;
+  // Resolved from staff_records at login, never typed by the person sitting it.
+  staffId: string;
+  restaurant: string;
 };
 
 type LanguageType = 'en' | 'th';
@@ -35,7 +38,6 @@ type StepType = 'welcome' | 'language' | 'quiz' | 'consent' | 'result';
 type FeedbackType = 'correct' | 'wrong' | null;
 
 interface WelcomeScreenProps {
-  userData: UserData;
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
   setStep: React.Dispatch<React.SetStateAction<StepType>>;
 }
@@ -415,8 +417,45 @@ const orientationData = [
 // Pass mark: every question must be correct. Was 80% (8/10) until 09/09/2026.
 const PASS_MARK = orientationData.length;
 
-const WelcomeScreen = ({ userData, setUserData, setStep }: WelcomeScreenProps) => {
-  const isComplete = userData.firstName.trim() && userData.lastName.trim() && userData.mobile.trim();
+const WelcomeScreen = ({ setUserData, setStep }: WelcomeScreenProps) => {
+  const [mobile, setMobile] = useState('');
+  const [pin, setPin] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [isChecking, setIsChecking] = useState(false);
+
+  const pinOk = /^\d{4}$/.test(pin);
+  const canSubmit = mobile.trim().length >= 8 && pinOk;
+
+  const handleLogin = async () => {
+    if (!canSubmit || isChecking) return;
+    setIsChecking(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mobile: mobile.trim(), pin }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'Could not log you in.');
+        setIsChecking(false);
+        return;
+      }
+      // Identity comes from the staff record, not from anything typed here.
+      setUserData({
+        firstName: data.staff.firstName,
+        lastName: data.staff.lastName,
+        mobile: data.staff.mobile || mobile.trim(),
+        staffId: data.staff.id,
+        restaurant: data.staff.restaurant,
+      });
+      setStep('language');
+    } catch {
+      setError('Network problem. Please check your signal and try again.');
+      setIsChecking(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500">
@@ -424,57 +463,58 @@ const WelcomeScreen = ({ userData, setUserData, setStep }: WelcomeScreenProps) =
         <ClipboardCheck className="w-12 h-12 text-black" />
       </div>
       <h1 className="text-3xl font-bold text-white mb-2 uppercase tracking-tighter">{MODULE_NAME}</h1>
-      <p className="text-yellow-500 font-medium mb-8">Staff Induction Assessment 2026</p>
-      
-      <div className="w-full max-w-sm space-y-4 bg-zinc-900 border border-zinc-800 p-6 rounded-2xl mb-8 text-left">
-        <div>
-          <label className="block text-zinc-400 text-xs uppercase tracking-widest mb-1.5 flex items-center gap-2">
-            <User className="w-3 h-3" /> First Name
-          </label>
-          <input 
-            type="text" 
-            value={userData.firstName}
-            onChange={(e) => setUserData({ ...userData, firstName: e.target.value })}
-            placeholder="e.g. John"
-            className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-white focus:outline-none focus:border-yellow-500 transition-colors"
-          />
-        </div>
-        <div>
-          <label className="block text-zinc-400 text-xs uppercase tracking-widest mb-1.5 flex items-center gap-2">
-            <User className="w-3 h-3" /> Last Name
-          </label>
-          <input 
-            type="text" 
-            value={userData.lastName}
-            onChange={(e) => setUserData({ ...userData, lastName: e.target.value })}
-            placeholder="e.g. Smith"
-            className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-white focus:outline-none focus:border-yellow-500 transition-colors"
-          />
-        </div>
+      <p className="text-yellow-500 font-medium mb-2">Staff Induction Assessment 2026</p>
+      <p className="text-zinc-500 text-sm mb-8 max-w-sm">Log in with the mobile number and 4-digit passcode from your welcome SMS.</p>
+
+      <div className="w-full max-w-sm space-y-4 bg-zinc-900 border border-zinc-800 p-6 rounded-2xl mb-4 text-left">
         <div>
           <label className="block text-zinc-400 text-xs uppercase tracking-widest mb-1.5 flex items-center gap-2">
             <Smartphone className="w-3 h-3" /> Mobile Number
           </label>
-          <input 
-            type="tel" 
-            value={userData.mobile}
-            onChange={(e) => setUserData({ ...userData, mobile: e.target.value })}
+          <input
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel"
+            value={mobile}
+            onChange={(e) => { setMobile(e.target.value); setError(null); }}
             placeholder="e.g. 0400 000 000"
             className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-white focus:outline-none focus:border-yellow-500 transition-colors"
           />
         </div>
+        <div>
+          <label className="block text-zinc-400 text-xs uppercase tracking-widest mb-1.5 flex items-center gap-2">
+            <User className="w-3 h-3" /> Passcode
+          </label>
+          <input
+            type="password"
+            inputMode="numeric"
+            maxLength={4}
+            value={pin}
+            onChange={(e) => { setPin(e.target.value.replace(/\D/g, '').slice(0, 4)); setError(null); }}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleLogin(); }}
+            placeholder="4 digits"
+            className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-white tracking-[0.5em] focus:outline-none focus:border-yellow-500 transition-colors"
+          />
+        </div>
+        {error && <p className="text-red-400 text-xs font-bold">{error}</p>}
       </div>
 
-      <button 
-        disabled={!isComplete}
-        onClick={() => setStep('language')}
+      {!canSubmit && (
+        <p className="text-zinc-600 text-[10px] uppercase tracking-widest mb-3">
+          {!mobile.trim() ? 'Enter your mobile number' : 'Enter your 4-digit passcode'}
+        </p>
+      )}
+
+      <button
+        disabled={!canSubmit || isChecking}
+        onClick={handleLogin}
         className={`w-full max-w-sm flex items-center justify-center gap-2 p-4 rounded-xl font-bold text-lg transition-all ${
-          isComplete 
-            ? 'bg-yellow-500 text-black hover:bg-yellow-400 active:scale-95' 
+          canSubmit && !isChecking
+            ? 'bg-yellow-500 text-black hover:bg-yellow-400 active:scale-95'
             : 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
         }`}
       >
-        Next Step
+        {isChecking ? 'Checking…' : 'Log In'}
         <ChevronRight className="w-5 h-5" />
       </button>
     </div>
@@ -808,7 +848,9 @@ const App = () => {
   const [userData, setUserData] = useState<UserData>({
     firstName: '',
     lastName: '',
-    mobile: ''
+    mobile: '',
+    staffId: '',
+    restaurant: ''
   });
   const [showFeedback, setShowFeedback] = useState<FeedbackType>(null);
 
@@ -890,6 +932,7 @@ const App = () => {
       firstName: userData.firstName,
       lastName: userData.lastName,
       mobile: userData.mobile,
+      restaurant: userData.restaurant,
       score: score,
       totalQuestions: orientationData.length,
       passed: score >= PASS_MARK,
@@ -917,7 +960,7 @@ const App = () => {
             <span className="font-bold tracking-tighter text-lg uppercase">{MODULE_NAME}</span>
           </div>
           <div className="text-[10px] text-zinc-600 font-mono hidden sm:block">
-            V 2609091600
+            V 2609101200
           </div>
         </div>
       </nav>
@@ -926,7 +969,6 @@ const App = () => {
       <main className="max-w-5xl mx-auto py-8">
         {step === 'welcome' && (
           <WelcomeScreen 
-            userData={userData} 
             setUserData={setUserData} 
             setStep={setStep} 
           />
